@@ -16,10 +16,20 @@ Including another URLconf
 """
 
 from django.contrib import admin
+from django.http import HttpResponse
 from django.urls import include, path
+
+
+def hello_world(request):
+    return HttpResponse("hello world")
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('demo-app/', include('demo_app.urls'))
+    # This is the line we added for "Creating our Django hello_world Project" section
+    path("hello-world", hello_world),
+    # This is the new line we added for "Linking app views using urls.py" section
+    path("demo-app/", include("demo_app.urls")),
+    # This is the new line we added for "Use API Versioning" section
+    path("<version>/demo-app-version/", include("demo_app.urls")),
 ]

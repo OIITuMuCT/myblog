@@ -15,4 +15,6 @@ urlpatterns = [
     path("hello-world/", views.hello_world),
     # This is the new line we added for "Linking app views using urls.py" section
     path("hello-world-drf/", views.hello_world_drf),
+    # Next 3 line we added for "Use API Versioning" section
+    path('demo-version/', views.demo_version),
 ]
