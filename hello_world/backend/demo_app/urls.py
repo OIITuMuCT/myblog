@@ -17,4 +17,6 @@ urlpatterns = [
     path("hello-world-drf/", views.hello_world_drf),
     # Next 3 line we added for "Use API Versioning" section
     path('demo-version/', views.demo_version),
+    path('custom-version/', views.DemoView.as_view()),
+    path('another-custom-version/', views.AnotherView.as_view()),
 ]
