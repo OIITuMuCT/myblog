@@ -13,6 +13,10 @@ class Author(models.Model):
     def get_short_bio(self):
         return f'{self.bio[:200]}...'
 
+    def fetch_short_bio(self):
+        return self.bio[:100]
+
+
     def __str__(self):
         return self.name
 
