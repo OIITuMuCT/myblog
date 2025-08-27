@@ -167,6 +167,16 @@ class BlogCustom11Serializer(serializers.ModelSerializer):
         extra_kwargs = {"title": {"validators": [func_validator]}}
 
 
+#######################
+class BlogCustom12Serializer(serializers.ModelSerializer):
+    """Remove default validators from the DRF Serializer class"""
+    class Meta:
+        model = Blog
+        fields = "__all__"
+        validators = []
+
+
+
 class BlogCustom15Serializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         print('Printing context –', self.context)
