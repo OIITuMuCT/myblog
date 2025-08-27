@@ -14,6 +14,18 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
-class CoverImage(models.Model):
+## Using model inheritance
+class BaseTimeStampModel(models.Model):
+    """Adding a create and update date time"""
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        """Abstract base class"""
+        abstract = True
+
+
+class CoverImage(BaseTimeStampModel):
+    """ Cover Image model """
     image_link = models.URLField()
     blog = models.OneToOneField(Blog, related_name='blog_ci', on_delete=models.PROTECT)
