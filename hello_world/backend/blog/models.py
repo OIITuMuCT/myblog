@@ -9,7 +9,7 @@ class Blog(models.Model):
                             related_name='author_blogs',
                             on_delete=models.PROTECT)
     cover_image = models.OneToOneField('CoverImage',
-                                related_name='blog_cover_image',
+                                related_name='blog_cover_image', null=True,
                                 on_delete=models.PROTECT)
     tags = models.ManyToManyField("Tags", related_name='blog_tags')
     created_at = models.DateTimeField(auto_now_add=True)
