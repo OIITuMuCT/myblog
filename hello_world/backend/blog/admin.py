@@ -1,5 +1,24 @@
 from django.contrib import admin
 from blog.models import Blog
 
-# Register your models here.
-admin.site.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    pass
+
+# admin.site.register(Blog, BlogAdmin)
+
+class BlogCustomAdmin(admin.ModelAdmin):
+    search_fields = ['title']
+    show_full_result_count = True
+    list_filter = ['title']
+    list_display = ['title', 'created_at']
+    date_hierarchy = 'created_at'
+
+# admin.site.register(Blog, BlogCustomAdmin)
+
+class BlogCustom2Admin(admin.ModelAdmin):
+    list_display = ['title', 'word_count', 'id']
+
+    def word_count(self, obj):
+        return obj.content.split()
+
+admin.site.register(Blog, BlogCustom2Admin)
