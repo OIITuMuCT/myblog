@@ -29,3 +29,16 @@ class BlogCustom3Admin(admin.ModelAdmin):
     filter_horizontal = ['tags']
 
 # admin.site.register(Blog, BlogCustom3Admin)
+
+class BlogCustom4Admin(admin.ModelAdmin):
+    list_display = ['title', 'create_at', 'author_full_name']
+
+    def author_full_name(self, obj):
+        return f'{obj.author.user.first_name} {obj.author.user.last_name}'
+
+    def get_queryset(self, request):
+        default_qs = super().get_queryset(request)
+        improved_qs = default_qs.select_related('author', 'author__user')
+        return improved_qs
+
+# admin.site.register(Blog, BlogCustom4Admin)
