@@ -46,7 +46,9 @@ THIRD_PARTY_APPS = [
 CUSTOM_APPS = [
     'blog',
     'author',
+    'custom_user',
     'demo_app',
+    
 ]
 
 INSTALLED_APPS = DJANGO_APPS + CUSTOM_APPS + THIRD_PARTY_APPS
