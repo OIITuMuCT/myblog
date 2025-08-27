@@ -176,6 +176,30 @@ class BlogCustom12Serializer(serializers.ModelSerializer):
         validators = []
 
 
+#######################
+class BlogCustom13Serializer(serializers.ModelSerializer):
+    """Using to_internal_value"""
+    def to_internal_value(self, data):
+        print("before validation", data)
+        return super().to_internal_value(data)
+
+    class Meta:
+        model = Blog
+        fields = "__all__"
+
+#######################
+
+class BlogCustom14Serializer(serializers.ModelSerializer):
+    """Using to_representation"""
+    def to_representation(self, instance):
+        resp = super().to_representation(instance)
+        resp["title"] = resp["title"].upper()
+        return resp
+
+    class Meta:
+        model = Blog
+        fields = "__all__"
+
 
 class BlogCustom15Serializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
