@@ -46,6 +46,7 @@ class BlogCustom4Admin(admin.ModelAdmin):
 
 # admin.site.register(Blog, BlogCustom4Admin)
 
+# Using Django Admin logs
 @admin.register(LogEntry)
 class LogEntryAdmin(admin.ModelAdmin):
     def has_change_permission(self, request, obj=None):
@@ -55,6 +56,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     def has_add_permission(self, request):
         return False
 
+# Using Custom Admin Paginator
 class CustomPaginator(paginator.Paginator):
     @cached_property
     def count(self):
@@ -64,3 +66,14 @@ class BlogCustom5Admin(admin.ModelAdmin):
     paginator = CustomPaginator
 
 admin.site.register(Blog, BlogCustom5Admin)
+
+# Using list_select_related
+class BlogCustom7Admin(admin.ModelAdmin):
+    list_display = ['title', 'created_at', 'author_full_name']
+    list_select_related = ['author', 'author__name']
+
+    def author_full_name(self, obj):
+        return obj.author.name
+
+# admin.site.register(Blog, BlogCustom7Admin)
+
