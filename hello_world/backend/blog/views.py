@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import views
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -21,4 +22,10 @@ class BlogGetCreateView(views.APIView):
             b_obj.save()
             return Response(b_obj.data, status=status.HTTP_201_CREATED)
         return Response(b_obj.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
+class BlogGetUpdateView(generics.ListCreateAPIView):
+    serializer_class = BlogSerializer
+
+    def get_queryset(self):
+        blogs_queryset = Blog.objects.filter(id__gt=1)
+        return blogs_queryset
