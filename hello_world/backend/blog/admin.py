@@ -65,7 +65,7 @@ class CustomPaginator(paginator.Paginator):
 class BlogCustom5Admin(admin.ModelAdmin):
     paginator = CustomPaginator
 
-admin.site.register(Blog, BlogCustom5Admin)
+# admin.site.register(Blog, BlogCustom5Admin)
 
 # Using list_select_related
 class BlogCustom7Admin(admin.ModelAdmin):
@@ -76,4 +76,13 @@ class BlogCustom7Admin(admin.ModelAdmin):
         return obj.author.name
 
 # admin.site.register(Blog, BlogCustom7Admin)
+# Using custom actions
+class BlogCustom8Admin(admin.ModelAdmin):
+    actions = ('print_blogs_titles',)
+    
+    @admin.action(description='Prints title')
+    def print_blogs_titles(self, request, queryset):
+        for data in queryset.all():
+            print(data.title)
 
+admin.site.register(Blog, BlogCustom8Admin)
