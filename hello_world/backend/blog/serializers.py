@@ -140,6 +140,32 @@ class BlogCustom10Serializer(serializers.ModelSerializer):
         fields = "__all__"
         validators = [custom_obj_validator]
 
+#######################
+
+def func_validator(attr):  # 1- Evaluates first
+    """ The order of the evaluation of validators """
+    print("func val")
+    if "*" in attr:
+        raise serializers.ValidationError("Illegal char")
+    return attr
+
+
+class BlogCustom11Serializer(serializers.ModelSerializer):
+    def validate_title(self, value):  # 2-If func_validator succeeds
+        print("validate_title method")
+        if "_" in value:
+            raise serializers.ValidationError("Illegal char")
+        return value
+
+    def validate(self, attrs):  # 3- If all field validator succeeds
+        print("main validate method")
+        return attrs
+
+    class Meta:
+        model = Blog
+        fields = "__all__"
+        extra_kwargs = {"title": {"validators": [func_validator]}}
+
 
 class BlogCustom15Serializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
