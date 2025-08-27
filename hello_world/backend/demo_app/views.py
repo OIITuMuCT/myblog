@@ -39,3 +39,23 @@ class AnotherView(APIView):
         elif version == 'v2':
             # perform v2 related tasks
             return Response(data={'msg': 'v2 logic'})
+
+
+@api_view(['GET', 'POST', 'PUT'])
+def hello_world_functional_view(request, *args, **kwargs):
+    if request.method == 'POST':
+        return Response(data={'msg': 'POST response block'})
+    elif request.method == 'PUT':
+        return Response(data={'msg': 'PUT response block'})
+    return Response(data={'msg': 'GET response block'})
+
+
+class DemoAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        return Response(data={'msg': 'get request block'})
+
+    def post(self, request, *args, **kwargs):
+        return Response(data={'msg': 'post request block'})
+
+    def delete(self, request, *args, **kwargs):
+        return Response(data={'msg': 'delete request block'})
