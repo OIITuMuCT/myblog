@@ -200,6 +200,7 @@ class BlogCustom14Serializer(serializers.ModelSerializer):
         model = Blog
         fields = "__all__"
 
+#######################
 
 class BlogCustom15Serializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
@@ -210,7 +211,10 @@ class BlogCustom15Serializer(serializers.ModelSerializer):
         model = Blog
         fields = '__all__'
 
+#######################
+
 class CustomPKRelatedField(serializers.PrimaryKeyRelatedField):
+    """Passing a custom QuerySet to PrimaryKeyField"""
     def get_queryset(self):
         req = self.context.get('request', None) # context value
         queryset = super().get_queryset() # retrieve default filter
