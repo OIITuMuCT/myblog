@@ -1,4 +1,7 @@
 from django.contrib import admin
+from django.contrib.admin.models import LogEntry
+from django.core import paginator
+from django.utils.functional import cached_property
 from blog.models import Blog
 
 class BlogAdmin(admin.ModelAdmin):
@@ -42,3 +45,22 @@ class BlogCustom4Admin(admin.ModelAdmin):
         return improved_qs
 
 # admin.site.register(Blog, BlogCustom4Admin)
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    def has_change_permission(self, request, obj=None):
+        return False
+    def has_delete_permission(self, request, obj=None):
+        return False
+    def has_add_permission(self, request):
+        return False
+
+class CustomPaginator(paginator.Paginator):
+    @cached_property
+    def count(self):
+        return 99999
+
+class BlogCustom5Admin(admin.ModelAdmin):
+    paginator = CustomPaginator
+
+admin.site.register(Blog, BlogCustom5Admin)
