@@ -10,8 +10,9 @@ class Blog(models.Model):
                             on_delete=models.PROTECT)
     cover_image = models.OneToOneField('CoverImage',
                                 related_name='blog_cover_image', null=True,
+                                blank=True,
                                 on_delete=models.PROTECT)
-    tags = models.ManyToManyField("Tags", related_name='blog_tags')
+    tags = models.ManyToManyField("Tags", related_name='blog_tags', blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,6 +38,9 @@ class CoverImage(BaseTimeStampModel):
 
 class Tags(BaseTimeStampModel):
     name = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['name']
 
     def __str__(self):
         return self.name
