@@ -24,6 +24,8 @@ class BaseTimeStampModel(models.Model):
         """Abstract base class"""
         abstract = True
 
+class DemoModel(BaseTimeStampModel):
+    name = models.CharField(max_length=100)
 
 class CoverImage(BaseTimeStampModel):
     """ Cover Image model """
