@@ -7,6 +7,12 @@ class Author(models.Model):
     email = models.EmailField()
     bio = models.TextField(null=True, blank=True)
 
+    def get_author_email(self):
+        return f'{self.email}'
+
+    def get_short_bio(self):
+        return f'{self.bio[:200]}...'
+
     def __str__(self):
         return self.name
 
