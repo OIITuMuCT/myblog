@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import views
 from rest_framework import generics
+from rest_framework import filters
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -29,3 +30,9 @@ class BlogGetUpdateView(generics.ListCreateAPIView):
     def get_queryset(self):
         blogs_queryset = Blog.objects.filter(id__gt=1)
         return blogs_queryset
+
+class BlogGetUpdateFilterView(generics.ListAPIView):
+    serializer_class = BlogSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['title']
+
