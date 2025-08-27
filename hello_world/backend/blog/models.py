@@ -8,6 +8,10 @@ class Blog(models.Model):
     author = models.ForeignKey('author.Author',
                             related_name='author_blogs',
                             on_delete=models.PROTECT)
+    cover_image = models.OneToOneField('CoverImage',
+                                related_name='blog_cover_image',
+                                on_delete=models.PROTECT)
+    tags = models.ManyToManyField("Tags", related_name='blog_tags')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -30,4 +34,9 @@ class DemoModel(BaseTimeStampModel):
 class CoverImage(BaseTimeStampModel):
     """ Cover Image model """
     image_link = models.URLField()
-    blog = models.OneToOneField(Blog, related_name='blog_ci', on_delete=models.PROTECT)
+
+class Tags(BaseTimeStampModel):
+    name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.name
