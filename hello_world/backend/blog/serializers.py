@@ -56,6 +56,7 @@ class BlogCustom4Serializer(serializers.ModelSerializer):
 #######################
 
 class BlogCustom5Serializer(serializers.ModelSerializer):
+    """Exploring SerializerMethodField"""
     word_count = serializers.SerializerMethodField()
 
     def get_word_count(self, obj):
@@ -80,6 +81,7 @@ class BlogCustom6CustomSerializer(serializers.ModelSerializer):
 #######################
 
 class BlogCustom7Serializer(serializers.ModelSerializer):
+    """Customizing field-level validation"""
     def validate_title(self, value):
         print("validate_title method")
         if "_" in value:
@@ -93,6 +95,7 @@ class BlogCustom7Serializer(serializers.ModelSerializer):
 #######################
 
 def demo_func_validator(attr):
+    """Defining a custom field-level validator"""
     print('func val')
     if '_' in attr:
         raise serializers.ValidationError('invalid char')
@@ -107,6 +110,35 @@ class BlogCustom8Serializer(serializers.ModelSerializer):
             "title": {"validators": [demo_func_validator]},
             "content": {"validators": [demo_func_validator]},
         }
+
+#######################
+
+class BlogCustom9Serializer(serializers.ModelSerializer):
+    """Performing object-level validation"""
+    def validate(self, attrs):
+        if attrs["title"] == attrs["content"]:
+            raise serializers.ValidationError("Title and content cannot have value")
+        return attrs
+
+    class Meta:
+        model = Blog
+        fields = "__all__"
+
+
+#######################
+def custom_obj_validator(attrs):
+    """Defining custom object-level validators"""
+    print("custom object validator")
+    if attrs["title"] == attrs["content"]:
+        raise serializers.ValidationError("Title and content cannot have the same")
+    return attrs
+
+
+class BlogCustom10Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Blog
+        fields = "__all__"
+        validators = [custom_obj_validator]
 
 
 class BlogCustom15Serializer(serializers.ModelSerializer):
