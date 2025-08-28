@@ -32,4 +32,6 @@ urlpatterns = [
     path("demo-app/", include("demo_app.urls")),
     # This is the new line we added for "Use API Versioning" section
     path("<version>/demo-app-version/", include("demo_app.urls")),
+    path('api/auth/v1/', include('custom_user.urls')),
+    path('blog/', include('blog.urls')),
 ]
