@@ -2,8 +2,10 @@ from django.shortcuts import render
 from rest_framework import views
 from rest_framework import generics
 from rest_framework import filters
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
 
 from blog.serializers import BlogSerializer
 from blog.models import Blog
@@ -36,3 +38,8 @@ class BlogGetUpdateFilterView(generics.ListAPIView):
     filter_backends = [filters.OrderingFilter]
     ordering_fields = ['title']
 
+@api_view(['GET'])
+def basic_req(request):
+    if request.method == 'GET':
+        resp = {"msg": "hello world!"}
+        return Response(data=resp, status=status.HTTP_200_OK)
