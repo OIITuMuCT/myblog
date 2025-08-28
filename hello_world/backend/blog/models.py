@@ -21,6 +21,7 @@ class Blog(models.Model):
             ('update_title', 'Can update the title of the blog'),
             ('update_content', 'Can update the content of blog')
         ]
+        ordering = ['id']
 
     def __str__(self):
         return self.title
@@ -45,8 +46,6 @@ class CoverImage(BaseTimeStampModel):
 class Tags(BaseTimeStampModel):
     name = models.CharField(max_length=100, unique=True)
 
-    class Meta:
-        ordering = ['name']
 
     def __str__(self):
         return self.name
