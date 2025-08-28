@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>MyBlog</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <table class="table table-bordered table-striped text-center mt-3">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Blog title</th>
+                    <th>Author</th>
+                    <th>Updated</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for blog in blog_list %}
+                <tr>
+                    <td>{{blog.id}}</td>
+                    <td>{{blog.title}}</td>
+                    <td>{{blog.author}}</td>
+                    <td>{% if blog.update_at %}{{blog.update_at}}{% else %}---{% endif %}</td>
+                    <td>{{blog.created_at}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
