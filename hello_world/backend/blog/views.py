@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 from blog.serializers import BlogSerializer
 from blog.models import Blog
 
-# Create your views here.
+
 class BlogGetCreateView(views.APIView):
     """ List of Blogs """
     def get(self, request):
@@ -42,4 +42,10 @@ class BlogGetUpdateFilterView(generics.ListAPIView):
 def basic_req(request):
     if request.method == 'GET':
         resp = {"msg": "hello world!"}
+        return Response(data=resp, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def basic_req_2(request):
+    if request.method == 'GET':
+        resp = {'msg': 'hello world!'}
         return Response(data=resp, status=status.HTTP_200_OK)
