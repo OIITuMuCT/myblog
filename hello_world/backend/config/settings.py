@@ -41,6 +41,7 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 CUSTOM_APPS = [
@@ -103,7 +104,15 @@ DATABASES = {
         "PASSWORD": "wCh29&HE&T83",
         "HOST": "localhost",
         "PORT": "5432",
-    }
+        "TEST": {
+            "NAME": "test_db"
+        },
+    },
+    'other_db': {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "test_db.sqlite3",
+        # ... other settings
+    },
 }
 
 # Password validation
@@ -147,7 +156,18 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Uncomment the following line only when you are using CustomUser model.
+# AUTH_USER_MODEL = "custom_user.CustomUser"
+
 # Add to support versioning in URL path using DRF
+# Add the following lines to enable Token Authentication
 REST_FRAMEWORK = {
-    'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning'
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        # This is to support session based authentication when using the browsable API
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
 }
